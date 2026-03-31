@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   keywords: ["creator economy", "brand marketing", "influencers", "Getsa"],
 };
 
+// layout.tsx
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,11 +30,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      {/* 1. Added bg-neutral to the body so the 'bounce' area isn't black */}
       <body className="min-h-screen flex flex-col bg-neutral text-foreground">
         <Navbar />
-        <main className="flex-1">{children}</main>
+        {/* 2. Added pt-24 (padding-top) so your logo and "Welcome" aren't hidden */}
+        <main className="flex-1 pt-24">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
   );
+
 }
