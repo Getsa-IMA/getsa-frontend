@@ -14,6 +14,7 @@ const Footer = () => {
             width={80} 
             height={24} 
             className="object-contain"
+            style={{ height: 'auto', width: 'auto' }}
           />
           <span className="text-sm font-bold">Getsa &copy; 2026</span>
         </div>

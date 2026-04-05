@@ -12,9 +12,6 @@ const Home = () => {
       <HeroSection />
       <FeaturedCreators />
       <Categories />
-      <TrustedBrands />
-      <AnalyticsFeature />
-      <Testimonials />
       <FAQSection />
     </main>
   );

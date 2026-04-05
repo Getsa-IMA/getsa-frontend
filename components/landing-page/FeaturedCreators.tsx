@@ -1,42 +1,105 @@
+'use client';
+
 import React from 'react';
-import Link from "next/link";
-import CreatorCard from "@/components/CreatorCard";
+import { LayoutTemplate, Palette, Camera, Sparkles } from 'lucide-react';
+import { FreelancerProfileCard } from '@/components/ui/freelancer-profile-card';
+import DotGrid from '@/components/ui/DotGrid';
+
+const ToolIcon = ({ icon: Icon }: { icon: React.ElementType }) => (
+  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-gray-100 text-gray-500">
+    <Icon className="h-4 w-4" />
+  </div>
+);
+
+const creators = [
+  {
+    id: 1,
+    name: 'Sophia Rose',
+    title: 'Skincare & Minimalist Beauty',
+    followers: '284K followers',
+    rating: 4.9,
+    avatarSrc: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=200&h=200&fit=crop',
+    bannerSrc: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=900&fit=crop',
+    tools: [LayoutTemplate, Palette],
+  },
+  {
+    id: 2,
+    name: 'Marcus Vane',
+    title: 'Luxury Lifestyle & Fragrance',
+    followers: '512K followers',
+    rating: 4.8,
+    avatarSrc: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&h=200&fit=crop',
+    bannerSrc: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=900&fit=crop',
+    tools: [Camera, Sparkles],
+  },
+  {
+    id: 3,
+    name: 'Elena K.',
+    title: 'High-End Makeup Artistry',
+    followers: '193K followers',
+    rating: 4.7,
+    avatarSrc: 'https://images.unsplash.com/photo-1594465919760-441fe5908ab0?q=80&w=200&h=200&fit=crop',
+    bannerSrc: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=900&fit=crop',
+    tools: [Palette, Sparkles],
+  },
+  {
+    id: 4,
+    name: 'Jordan Bloom',
+    title: 'Wellness & Organic Living',
+    followers: '97K followers',
+    rating: 4.6,
+    avatarSrc: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&h=200&fit=crop',
+    bannerSrc: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=900&fit=crop',
+    tools: [LayoutTemplate, Camera],
+  },
+];
 
 const FeaturedCreators = () => {
-  const creators = [
-    { id: 1, name: "Sophia Rose", niche: "Skincare & Minimalist Beauty", price: "250", image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=500" },
-    { id: 2, name: "Marcus Vane", niche: "Luxury Lifestyle & Fragrance", price: "400", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=500" },
-    { id: 3, name: "Elena K.", niche: "High-End Makeup Artistry", price: "320", image: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?q=80&w=500" },
-    { id: 4, name: "Jordan Bloom", niche: "Wellness & Organic Living", price: "180", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=500" },
-  ];
-
   return (
-      <section className="max-w-7xl mx-auto px-8 py-24 animate-fade-in-up">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div className="space-y-3">
-            <span className="text-primary font-bold tracking-widest uppercase text-sm">Top Rated</span>
-            <h2 className="text-4xl md:text-5xl font-black text-foreground">Featured Creators</h2>
-            <p className="text-foreground/50 text-xl font-medium max-w-lg">Top trending beauty influencers this week driving massive ROI.</p>
-          </div>
-          <Link href="/explore" className="group flex items-center gap-2 bg-neutral py-4 px-8 rounded-full font-bold text-lg text-foreground hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-white transition-all shadow-sm cursor-pointer border border-foreground/5 active:scale-95">
-            View All 
-            <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
-          </Link>
-        </div>
+    <section className="relative bg-white pt-10 pb-20 overflow-hidden">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {/* DotGrid background */}
+      <div className="absolute inset-0 z-0">
+        <DotGrid
+          dotSize={4}
+          gap={22}
+          baseColor="#e8e8f0"
+          activeColor="#A832A8"
+          proximity={120}
+          shockRadius={250}
+          shockStrength={5}
+          resistance={750}
+          returnDuration={1.5}
+        />
+      </div>
+
+      {/* Fade overlay */}
+      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-white/50 via-white/20 to-white/55 pointer-events-none" />
+
+      {/* Cards */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {creators.map((creator, i) => (
-            <div key={creator.id} style={{ animationDelay: `${i * 0.15}s` }} className="animate-fade-in-up">
-              <CreatorCard 
+            <div key={creator.id} style={{ animationDelay: `${i * 0.1}s` }} className="animate-fade-in-up">
+              <FreelancerProfileCard
                 name={creator.name}
-                niche={creator.niche}
-                price={+creator.price}
-                image={creator.image}
+                title={creator.title}
+                avatarSrc={creator.avatarSrc}
+                bannerSrc={creator.bannerSrc}
+                rating={creator.rating}
+                followers={creator.followers}
+                tools={creator.tools.map((Icon, idx) => (
+                  <ToolIcon key={idx} icon={Icon} />
+                ))}
+                onGetInTouch={() => console.log(`Contact ${creator.name}`)}
+                onBookmark={() => console.log(`Bookmarked ${creator.name}`)}
               />
             </div>
           ))}
         </div>
-      </section>
+      </div>
+
+    </section>
   );
 };
 

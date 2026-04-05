@@ -12,8 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import { ClerkProvider } from '@clerk/nextjs'
 
 export const metadata: Metadata = {
   title: "Getsa | Connecting Premium Brands & Creators",
@@ -22,24 +21,22 @@ export const metadata: Metadata = {
   keywords: ["creator economy", "brand marketing", "influencers", "Getsa"],
 };
 
-// layout.tsx
-export default function RootLayout({
+export const dynamic = 'force-dynamic';
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      {/* 1. Added bg-neutral to the body so the 'bounce' area isn't black */}
-      <body className="min-h-screen flex flex-col bg-neutral text-foreground">
-        <Navbar />
-        {/* 2. Added pt-24 (padding-top) so your logo and "Welcome" aren't hidden */}
-        <main className="flex-1 pt-24">
-          {children}
-        </main>
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <body className="min-h-screen flex flex-col bg-white text-foreground">
+          <main className="flex-1">
+            {children}
+          </main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
-
 }
