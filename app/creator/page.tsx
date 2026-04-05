@@ -1,22 +1,65 @@
 'use client';
 
-import { useUser } from '@clerk/nextjs';
+import { useUser, useAuth } from '@clerk/nextjs';
 import { Camera, Video, Monitor, User as UserIcon, Mail, MessageCircle, DollarSign, Users, ArrowLeft, Send } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { submitCreatorRequest } from '@/lib/services/creator';
 
 export default function CreatorOnboarding() {
   const { user, isLoaded } = useUser();
+  const { getToken } = useAuth();
   const [profilePic, setProfilePic] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setSelectedFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setProfilePic(reader.result as string);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!user) return;
+
+    setIsSubmitting(true);
+    const formData = new FormData(e.currentTarget);
+    
+    const submissionData = {
+      name: (formData.get('name') as string) || user.fullName || '',
+      email: user.primaryEmailAddress?.emailAddress || '',
+      post_price: Number(formData.get('post_price')) || 0,
+      reel_price: Number(formData.get('reel_price')) || 0,
+      story_price: Number(formData.get('story_price')) || 0,
+      instagram_link: (formData.get('instagram_link') as string) || '',
+      whatsapp_number: (formData.get('whatsapp_number') as string) || '',
+      youtube_link: (formData.get('youtube_link') as string) || '',
+      image: selectedFile,
+    };
+
+    try {
+      console.log("Submitting creator request data with auth...", submissionData);
+      const token = await getToken();
+      const result = await submitCreatorRequest(submissionData, token || undefined);
+      
+      if (result.success) {
+        alert("Profile submitted successfully!");
+        // Optionally redirect or clear form
+      } else {
+        alert(`Submission failed: ${result.error}`);
+      }
+    } catch (err) {
+      console.error("Submission Error:", err);
+      alert("An unexpected error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -66,7 +109,7 @@ export default function CreatorOnboarding() {
         </div>
 
         {/* Form Structure */}
-        <form className="max-w-6xl">
+        <form onSubmit={handleSubmit} className="max-w-6xl">
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
             
@@ -106,7 +149,7 @@ export default function CreatorOnboarding() {
                 <div className="grid grid-cols-1 gap-10 pt-4">
                   <div className="space-y-2 group">
                     <span className="text-[11px] font-black text-gray-900 uppercase tracking-widest ml-1">Full Name</span>
-                    <input type="text" defaultValue={userName} placeholder="John Doe" className="w-full bg-white border-2 border-gray-100 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 focus:border-[#A832A8] outline-none transition-all placeholder:text-gray-300 shadow-sm" />
+                    <input type="text" name="name" defaultValue={userName} placeholder="John Doe" className="w-full bg-white border-2 border-gray-100 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 focus:border-[#A832A8] outline-none transition-all placeholder:text-gray-300 shadow-sm" />
                   </div>
                   <div className="space-y-2 group">
                     <span className="text-[11px] font-black text-gray-900 uppercase tracking-widest ml-1">Working Email</span>
@@ -114,7 +157,7 @@ export default function CreatorOnboarding() {
                   </div>
                   <div className="space-y-2 group">
                     <span className="text-[11px] font-black text-gray-900 uppercase tracking-widest ml-1">WhatsApp number</span>
-                    <input type="tel" placeholder="+91 9831209756" className="w-full bg-white border-2 border-gray-100 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 focus:border-[#A832A8] outline-none transition-all placeholder:text-gray-300 shadow-sm" />
+                    <input type="tel" name="whatsapp_number" placeholder="+91 9831209756" className="w-full bg-white border-2 border-gray-100 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 focus:border-[#A832A8] outline-none transition-all placeholder:text-gray-300 shadow-sm" />
                   </div>
                 </div>
               </div>
@@ -128,15 +171,15 @@ export default function CreatorOnboarding() {
                 <div className="grid grid-cols-1 gap-10">
                    <div className="space-y-2">
                     <span className="text-[11px] font-black text-gray-900 uppercase tracking-widest ml-1">Followers Count</span>
-                    <input type="text" placeholder="150K" className="w-full bg-white border-2 border-gray-100 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 focus:border-[#A832A8] outline-none transition-all placeholder:text-gray-300 shadow-sm" />
+                    <input type="text" name="followers_count" placeholder="150K" className="w-full bg-white border-2 border-gray-100 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 focus:border-[#A832A8] outline-none transition-all placeholder:text-gray-300 shadow-sm" />
                   </div>
                   <div className="space-y-2 group">
                     <span className="text-[11px] font-black text-gray-900 uppercase tracking-widest ml-1">Instagram Link</span>
-                    <input type="text" placeholder="instagram.com/johndoe" className="w-full bg-white border-2 border-gray-100 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 focus:border-[#D93A85] outline-none transition-all placeholder:text-gray-300 shadow-sm" />
+                    <input type="text" name="instagram_link" placeholder="instagram.com/johndoe" className="w-full bg-white border-2 border-gray-100 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 focus:border-[#D93A85] outline-none transition-all placeholder:text-gray-300 shadow-sm" />
                   </div>
                   <div className="space-y-2 group">
                     <span className="text-[11px] font-black text-gray-900 uppercase tracking-widest ml-1">YT Link (optional)</span>
-                    <input type="text" placeholder="youtube.com/@johndoe" className="w-full bg-white border-2 border-gray-100 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 focus:border-red-500 outline-none transition-all placeholder:text-gray-300 shadow-sm" />
+                    <input type="text" name="youtube_link" placeholder="youtube.com/@johndoe" className="w-full bg-white border-2 border-gray-100 rounded-2xl px-6 py-4 text-lg font-bold text-gray-900 focus:border-red-500 outline-none transition-all placeholder:text-gray-300 shadow-sm" />
                   </div>
                 </div>
               </div>
@@ -161,7 +204,7 @@ export default function CreatorOnboarding() {
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="text-2xl font-black text-gray-900">₹</span>
-                        <input type="number" placeholder="00" className="w-24 bg-gray-50 rounded-xl px-4 py-3 text-2xl font-black text-[#A832A8] outline-none border-0" />
+                        <input type="number" name={`${label.toLowerCase()}_price`} placeholder="00" className="w-24 bg-gray-50 rounded-xl px-4 py-3 text-2xl font-black text-[#A832A8] outline-none border-0" />
                       </div>
                     </div>
                   ))}
@@ -172,13 +215,14 @@ export default function CreatorOnboarding() {
               <div className="pt-10 space-y-8">
                 <button 
                   type="submit" 
-                  className="w-full group bg-gray-900 text-white rounded-[2rem] p-8 flex flex-col items-center justify-center gap-4 hover:bg-black transition-all shadow-2xl relative overflow-hidden"
+                  disabled={isSubmitting}
+                  className={`w-full group bg-gray-900 text-white rounded-[2rem] p-8 flex flex-col items-center justify-center gap-4 hover:bg-black transition-all shadow-2xl relative overflow-hidden ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
                   <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#D93A85] via-[#A832A8] to-[#7038D1]" />
-                  <span className="text-2xl font-black tracking-tight uppercase">Submit Profile</span>
+                  <span className="text-2xl font-black tracking-tight uppercase">{isSubmitting ? 'Submitting...' : 'Submit Profile'}</span>
                   <div className="flex items-center gap-4 text-sm font-bold text-white/70 group-hover:text-white transition-colors">
-                    <span>COMPLETE REGISTRATION</span>
-                    <Send className="w-4 h-4 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" />
+                    <span>{isSubmitting ? 'PLEASE WAIT' : 'COMPLETE REGISTRATION'}</span>
+                    <Send className={`w-4 h-4 transition-transform duration-500 ${isSubmitting ? 'animate-bounce' : 'group-hover:translate-x-2 group-hover:-translate-y-2'}`} />
                   </div>
                 </button>
                 <div className="flex gap-4">

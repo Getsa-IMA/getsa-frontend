@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 import { ClerkProvider } from '@clerk/nextjs'
+import SyncUser from "@/components/SyncUser";
 
 export const metadata: Metadata = {
   title: "Getsa | Connecting Premium Brands & Creators",
@@ -32,6 +33,7 @@ export default async function RootLayout({
     <ClerkProvider>
       <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <body className="min-h-screen flex flex-col bg-white text-foreground">
+          <SyncUser />
           <main className="flex-1">
             {children}
           </main>
