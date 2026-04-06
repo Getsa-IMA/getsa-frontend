@@ -98,7 +98,7 @@ const Navbar = () => {
                 
                 <SignedIn>
                   <div className="flex items-center gap-4">
-                    <Link href="/creator" className="text-sm font-bold text-gray-700 hover:text-[#A832A8]">Dashboard</Link>
+                    <Link href="/creator/dashboard" className="text-sm font-bold text-gray-700 hover:text-[#A832A8]">Dashboard</Link>
                     <UserButton />
                   </div>
                 </SignedIn>
@@ -125,7 +125,7 @@ const Navbar = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <SignUpButton forceRedirectUrl="/creator" mode="modal">
+                <SignUpButton forceRedirectUrl="/creator/dashboard" mode="modal">
                   <button className="group relative flex flex-col items-center text-center p-6 rounded-2xl border-2 border-gray-100 hover:border-[#A832A8]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#A832A8]/5">
                     <div className="w-14 h-14 rounded-full bg-[#A832A8]/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform text-[#A832A8]">
                       <UserIcon className="w-6 h-6" />
