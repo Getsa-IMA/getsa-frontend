@@ -88,3 +88,17 @@ body {
 .animate-pulse-slow {
   animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+.holographic-card {
+  position: relative;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #111, #222);
+  transition: transform 0.2s ease;
+  overflow: hidden;
+}
+
+.holo-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x) var(--y), rgba(255,255,255,0.2), transparent 40%);
+}
