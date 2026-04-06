@@ -35,7 +35,7 @@ interface FreelancerProfileCardProps extends React.HTMLAttributes<HTMLDivElement
 }
 
 // Animation variants for Framer Motion
-const cardVariants = {
+const cardVariants: any = {
   initial: { opacity: 0, y: 20 },
   animate: {
     opacity: 1,
@@ -48,7 +48,7 @@ const cardVariants = {
   },
 };
 
-const contentVariants = {
+const contentVariants: any = {
   initial: {},
   animate: {
     transition: {
@@ -58,7 +58,7 @@ const contentVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: any = {
   initial: { opacity: 0, y: 10 },
   animate: { opacity: 1, y: 0, transition: { duration: 0.3 } },
 };

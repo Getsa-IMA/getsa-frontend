@@ -1,19 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  weight: ['400', '500', '600', '700', '800'],
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-poppins",
 });
 
 import { ClerkProvider } from '@clerk/nextjs'
 import SyncUser from "@/components/SyncUser";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Getsa | Connecting Premium Brands & Creators",
@@ -30,15 +28,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <body className="min-h-screen flex flex-col bg-white text-foreground">
+    <html lang="en" className={`${poppins.variable} font-sans antialiased`}>
+      {/* 1. Added bg-neutral to the body so the 'bounce' area isn't black */}
+      <body className="min-h-screen flex flex-col bg-neutral text-foreground">
+        <ClerkProvider>
+          <Navbar />
           <SyncUser />
-          <main className="flex-1">
+          {/* 2. Added pt-24 (padding-top) so your logo and "Welcome" aren't hidden */}
+          <main className="flex-1 pt-24">
             {children}
           </main>
-        </body>
-      </html>
-    </ClerkProvider>
+          <Footer />
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 // components/Hero.tsx
  const Hero = () => {
   return (
-    <section className="pt-20 pb-10 px-4 text-center">
+    <section className="min-h-[calc(100vh-96px)] flex flex-col items-center justify-start pt-20 text-center px-8 relative overflow-hidden bg-white">
       <h1 className="text-5xl font-extrabold tracking-tight text-foreground mb-4">
         Find the best <span className="text-primary">Beauty</span> creators
       </h1>
