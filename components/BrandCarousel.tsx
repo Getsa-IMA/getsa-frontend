@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
+
 const brands = [
   {
     name: "Amazon",
@@ -63,7 +64,7 @@ export default function BrandCarousel() {
         <div className="absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-neutral to-transparent z-10" />
 
         {/* RIGHT FADE */}
-        <div className="absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-neutral to-transparent z-10" />
+        <div className="absolute right-0 top-0 h-full w-20 bg-linear-to-l from-neutral to-transparent z-10" />
 
         <div
           ref={scrollRef}
@@ -72,7 +73,7 @@ export default function BrandCarousel() {
           {[...brands, ...brands].map((brand, i) => (
             <div
               key={i}
-              className="min-w-[180px] bg-white rounded-2xl shadow px-6 py-4 flex items-center justify-center hover:scale-105 transition"
+              className="min-w-45 bg-white rounded-2xl shadow px-6 py-4 flex items-center justify-center hover:scale-105 transition"
             >
               <Image
                 src={brand.logo}
