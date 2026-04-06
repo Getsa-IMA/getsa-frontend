@@ -5,6 +5,13 @@ import HowItWorks from "@/components/HowItWorks";
 import ValueProps from "@/components/ValueProps";
 import Testimonials from "@/components/Testimonials";
 import { creators } from "@/app/lib/data";
+import BrandCarousel from "@/components/BrandCarousel";
+
+// ✅ Hero Components
+import  HeroSection  from "@/components/HeroSection";
+
+
+
 
 export const metadata = {
   title: "Find Influencers",
@@ -12,86 +19,207 @@ export const metadata = {
 };
 
 export default function BrandPage() {
+  {
+ 
+  const faqs = [
+    {
+      q: "How do I know if creators have real followers?",
+      a: "All creators are manually vetted and performance-checked to ensure authenticity and engagement quality.",
+    },
+    {
+      q: "Can I request revisions?",
+      a: "Yes, you can request revisions before approving content to ensuusere it matches your expectations.",
+    },
+    {
+      q: "Is payment secure ?",
+      a: "Funds are held in escrow and only released once you approve the content.",
+    },
+    
+  ];
+
+}
   return (
-    <main className="bg-neutral text-foreground">
+    <div className="flex flex-col bg-neutral text-foreground">
 
-      {/* HERO */}
-      <section className="py-20 text-center px-6">
-        <h1 className="text-5xl font-bold mb-6">
-          Find & Hire Influencers in Seconds
-        </h1>
+      {/* ================= HEADER ================= */}
+      
 
-        <p className="text-lg opacity-70 mb-10">
-          Search creators across Instagram, YouTube & UGC
-        </p>
+      <main className="grow">
 
-        <div className="max-w-4xl mx-auto">
-          <SearchBar />
-        </div>
-      </section>
+        {/* ================= HERO ================= */}
+        <HeroSection />
 
-      {/* FEATURED CREATORS */}
-      <section className="py-16 px-6 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold mb-10">
-          Featured Creators
-        </h2>
+   
+        {/* ================= TRUSTED BRANDS ================= */}
+<BrandCarousel />
 
-        <div className="grid md:grid-cols-4 gap-6">
-          {/* {creators.map((c: { id: any; }) => (
-            <CreatorCard key={c.id} creator={c} />
-          ))} */}
+        {/* ================= SEARCH BAR ================= */}
+        <section className="py-10 px-6">
+          <div className="max-w-4xl mx-auto">
+            <SearchBar />
+          </div>
+        </section>
 
-          {creators.map((c) => (
-  <CreatorCard key={c.id} creator={c} />
-))}
-        </div>
-      </section>
+        {/* ================= FEATURED CREATORS ================= */}
+        <section className="py-16 px-6 max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold mb-10">
+            Featured Creators
+          </h2>
 
-      {/* CATEGORIES */}
-      <section className="py-16 px-6 max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-10">
-          Browse Categories
-        </h2>
+          <div className="grid md:grid-cols-4 gap-6">
+            {creators.map((c) => (
+              <CreatorCard key={c.id} creator={c} />
+            ))}
+          </div>
+        </section>
 
-        <CategoryGrid />
-      </section>
+        {/* ================= CATEGORIES ================= */}
+        <section className="py-16 px-6 max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-10">
+            Browse Categories
+          </h2>
 
-      {/* HOW IT WORKS */}
-      <HowItWorks />
+          <CategoryGrid />
+        </section>
 
-      {/* VALUE PROPS */}
-      <ValueProps />
+        {/* ================= HOW IT WORKS ================= */}
+        <HowItWorks />
 
-      {/* CAMPAIGN CTA */}
-      <section className="py-20 text-center bg-neutral">
-        <h2 className="text-3xl font-bold mb-6">
-          Post a Campaign & Get Creators
-        </h2>
+        {/* ================= VALUE PROPS ================= */}
+        <ValueProps />
 
-        <button className="bg-secondary text-white px-6 py-3 rounded-xl font-semibold">
-          Post Campaign
-        </button>
-      </section>
+        {/* ================= CAMPAIGN CTA ================= */}
+        <section className="py-20 text-center bg-neutral">
+          <h2 className="text-3xl font-bold mb-6">
+            Post a Campaign & Get Creators
+          </h2>
 
-      {/* TESTIMONIALS */}
-      <Testimonials />
-     
-      <ValueProps />
+          <button className="bg-secondary text-white px-6 py-3 rounded-xl font-semibold hover:scale-105 transition">
+            Post Campaign
+          </button>
+        </section>
 
-      {/* FINAL CTA */}
-      <section className="py-20 text-center bg-gradient-to-r from-primary via-secondary to-tertiary text-white">
-        <h2 className="text-4xl font-bold mb-4">
-          Start Hiring Today
-        </h2>
+        {/* ================= TESTIMONIALS ================= */}
+        <Testimonials />
 
-        <button className="px-8 py-4 bg-white text-black rounded-xl">
-          Get Started
-        </button>
-      </section>
+        {/* ================= FINAL CTA ================= */}
+        <section className="py-20 text-center bg-linear-to-r from-primary via-secondary to-tertiary text-white">
+          <h2 className="text-4xl font-bold mb-4">
+            Start Hiring Today
+          </h2>
 
-    </main>
+          <button className="px-8 py-4 bg-white text-black rounded-xl font-semibold hover:scale-105 transition">
+            Get Started
+          </button>
+        </section>
+
+      </main>
+    </div>
   );
 }
+
+
+
+
+
+
+function useState<T>(arg0: null): [any, any] {
+  throw new Error("Function not implemented.");
+}
+// import SearchBar from "@/components/SearchBar";
+// import CreatorCard from "@/components/CreatorCard";
+// import CategoryGrid from "@/components/CategoryGrid";
+// import HowItWorks from "@/components/HowItWorks";
+// import ValueProps from "@/components/ValueProps";
+// import Testimonials from "@/components/Testimonials";
+// import { creators } from "@/app/lib/data";
+
+// export const metadata = {
+//   title: "Find Influencers",
+//   description: "Discover and hire creators instantly",
+// };
+
+// export default function BrandPage() {
+//   return (
+//     <main className="bg-neutral text-foreground">
+
+//       {/* HERO */}
+//       <section className="py-20 text-center px-6">
+//         <h1 className="text-5xl font-bold mb-6">
+//           Find & Hire Influencers in Seconds
+//         </h1>
+
+//         <p className="text-lg opacity-70 mb-10">
+//           Search creators across Instagram, YouTube & UGC
+//         </p>
+
+//         <div className="max-w-4xl mx-auto">
+//           <SearchBar />
+//         </div>
+//       </section>
+
+//       {/* FEATURED CREATORS */}
+//       <section className="py-16 px-6 max-w-7xl mx-auto">
+//         <h2 className="text-3xl font-bold mb-10">
+//           Featured Creators
+//         </h2>
+
+//         <div className="grid md:grid-cols-4 gap-6">
+//           {/* {creators.map((c: { id: any; }) => (
+//             <CreatorCard key={c.id} creator={c} />
+//           ))} */}
+
+//           {creators.map((c) => (
+//   <CreatorCard key={c.id} creator={c} />
+// ))}
+//         </div>
+//       </section>
+
+//       {/* CATEGORIES */}
+//       <section className="py-16 px-6 max-w-6xl mx-auto text-center">
+//         <h2 className="text-3xl font-bold mb-10">
+//           Browse Categories
+//         </h2>
+
+//         <CategoryGrid />
+//       </section>
+
+//       {/* HOW IT WORKS */}
+//       <HowItWorks />
+
+//       {/* VALUE PROPS */}
+//       <ValueProps />
+
+//       {/* CAMPAIGN CTA */}
+//       <section className="py-20 text-center bg-neutral">
+//         <h2 className="text-3xl font-bold mb-6">
+//           Post a Campaign & Get Creators
+//         </h2>
+
+//         <button className="bg-secondary text-white px-6 py-3 rounded-xl font-semibold">
+//           Post Campaign
+//         </button>
+//       </section>
+
+//       {/* TESTIMONIALS */}
+//       <Testimonials />
+     
+//       <ValueProps />
+
+//       {/* FINAL CTA */}
+//       <section className="py-20 text-center bg-gradient-to-r from-primary via-secondary to-tertiary text-white">
+//         <h2 className="text-4xl font-bold mb-4">
+//           Start Hiring Today
+//         </h2>
+
+//         <button className="px-8 py-4 bg-white text-black rounded-xl">
+//           Get Started
+//         </button>
+//       </section>
+
+//     </main>
+//   );
+// }
 
 
 
@@ -100,10 +228,6 @@ export default function BrandPage() {
 
 // import React, { useState } from "react";
 
-// // export const metadata = {
-// //   title: "Getsa - Brand Portal",
-// //   description: "Hire creators and scale your brand with high-quality UGC.",
-// // };
 
 
 
