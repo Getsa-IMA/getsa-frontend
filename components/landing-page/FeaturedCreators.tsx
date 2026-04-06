@@ -8,6 +8,14 @@ const FeaturedCreators = () => {
     { id: 2, name: "Marcus Vane", niche: "Luxury Lifestyle & Fragrance", price: "400", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=500" },
     { id: 3, name: "Elena K.", niche: "High-End Makeup Artistry", price: "320", image: "https://images.unsplash.com/photo-1594465919760-441fe5908ab0?q=80&w=500" },
     { id: 4, name: "Jordan Bloom", niche: "Wellness & Organic Living", price: "180", image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=500" },
+    { id: 5, name: "Lila Chen", niche: "K-Beauty & Skincare Reviews", price: "220", image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=500" },
+    { id: 6, name: "Ethan Cross", niche: "Men's Grooming & Lifestyle", price: "200", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=500" },  
+    { id: 7, name: "Maya Patel", niche: "Sustainable Fashion & Beauty", price: "270", image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=500" },
+    { id: 8, name: "Leo Martinez", niche: "Tech-Infused Beauty & Gadgets", price: "350", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=500" },
+    { id: 9, name: "Ava Thompson", niche: "Celebrity Beauty & Red Carpet", price: "500", image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=500" },
+    { id: 10, name: "Noah Lee", niche: "Fitness & Beauty Crossover", price: "230", image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=500" },
+    { id: 11, name: "Isabella Garcia", niche: "Boho-Chic & Festival Beauty", price: "190", image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=500" },
+    { id: 12, name: "Mason Reed", niche: "Avant-Garde & Artistic Makeup", price: "400", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=500" },
   ];
 
   return (

@@ -80,6 +80,7 @@ export default function BrandCarousel() {
                 alt={brand.name}
                 width={120}
                 height={40}
+                 unoptimized
                 className="object-contain grayscale hover:grayscale-0 transition duration-300"
               />
             </div>

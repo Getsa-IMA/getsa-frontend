@@ -6,6 +6,7 @@ import ValueProps from "@/components/ValueProps";
 import Testimonials from "@/components/Testimonials";
 import { creators } from "@/app/lib/data";
 import BrandCarousel from "@/components/BrandCarousel";
+import CreatorCarousel from "@/components/CreatorCarousel";
 
 // ✅ Hero Components
 import  HeroSection  from "@/components/HeroSection";
@@ -66,11 +67,9 @@ export default function BrandPage() {
             Featured Creators
           </h2>
 
-          <div className="grid md:grid-cols-4 gap-6">
-            {creators.map((c) => (
-              <CreatorCard key={c.id} creator={c} />
-            ))}
-          </div>
+        
+
+<CreatorCarousel />
         </section>
 
         {/* ================= CATEGORIES ================= */}
