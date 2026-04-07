@@ -14,6 +14,20 @@ export default function SyncUser() {
   useEffect(() => {
     if (!isLoaded || !isSignedIn || !user || syncRef.current) return;
 
+    // Check if on home page and already have a stored role to do instant redirect
+    if (pathname === "/") {
+      const storedRole = localStorage.getItem(`user_role_${user.id}`);
+      if (storedRole === "brand") {
+        console.log("Redirecting brand to dashboard...");
+        window.location.href = "/brand/dashboard";
+        return;
+      } else if (storedRole === "creator") {
+        console.log("Redirecting creator to dashboard...");
+        window.location.href = "/creator/dashboard";
+        return;
+      }
+    }
+
     // Check if already synced in this session to avoid redundant calls
     if (sessionStorage.getItem(`synced_${user.id}`)) {
       syncRef.current = true;
@@ -41,11 +55,14 @@ export default function SyncUser() {
       if (success) {
         syncRef.current = true;
         sessionStorage.setItem(`synced_${user.id}`, "true");
+        // Store user role in localStorage to remember it for future redirects
+        localStorage.setItem(`user_role_${user.id}`, tenant);
       }
     };
 
     performSync();
   }, [isLoaded, isSignedIn, user, pathname, getToken]);
+
 
   return null;
 }

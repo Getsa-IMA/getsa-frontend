@@ -10,14 +10,18 @@ import {
   SignUpButton, 
   SignInButton, 
   SignedIn, 
-  SignedOut 
+  SignedOut,
+  useUser
 } from '@clerk/nextjs';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showJoinModal, setShowJoinModal] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const { user } = useUser();
 
   useEffect(() => {
     setIsMounted(true);
@@ -98,10 +102,28 @@ const Navbar = () => {
                 
                 <SignedIn>
                   <div className="flex items-center gap-4">
-                    <Link href="/creator/dashboard" className="text-sm font-bold text-gray-700 hover:text-[#A832A8]">Dashboard</Link>
+                    {(() => {
+                      let dashboardUrl = "/creator/dashboard";
+                      
+                      if (pathname.startsWith("/brand")) {
+                        dashboardUrl = "/brand/dashboard";
+                      } else if (user) {
+                        const storedRole = localStorage.getItem(`user_role_${user.id}`);
+                        if (storedRole === "brand") {
+                          dashboardUrl = "/brand/dashboard";
+                        }
+                      }
+
+                      return (
+                        <Link href={dashboardUrl} className="text-sm font-bold text-gray-700 hover:text-[#A832A8]">
+                          Dashboard
+                        </Link>
+                      );
+                    })()}
                     <UserButton />
                   </div>
                 </SignedIn>
+
               </>
             )}
           </div>
@@ -134,7 +156,7 @@ const Navbar = () => {
                   </button>
                 </SignUpButton>
 
-                <SignUpButton forceRedirectUrl="/brand" mode="modal">
+                <SignUpButton forceRedirectUrl="/brand/dashboard" mode="modal">
                   <button className="group relative flex flex-col items-center text-center p-6 rounded-2xl border-2 border-gray-100 hover:border-[#D93A85]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#D93A85]/5">
                     <div className="w-14 h-14 rounded-full bg-[#D93A85]/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform text-[#D93A85]">
                       <Briefcase className="w-6 h-6" />
