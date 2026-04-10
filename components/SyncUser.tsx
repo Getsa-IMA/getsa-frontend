@@ -84,5 +84,6 @@ export default function SyncUser() {
     performSync();
   }, [isLoaded, isSignedIn, user, pathname, getToken]);
 
+
   return null;
 }
