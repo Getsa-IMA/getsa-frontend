@@ -14,7 +14,7 @@ export default function CreatorDashboardLayout({
         <SyncUser />
         <Sidebar className="z-30" />
         <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto pt-16 md:pt-0 pb-32 md:pb-0">
             {children}
           </div>
         </main>

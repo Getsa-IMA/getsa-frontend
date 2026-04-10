@@ -4,6 +4,9 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import { useAuth, useUser } from '@clerk/nextjs';
 
 export interface ProfileState {
+  description: string;
+  creator_id: number | null;
+  clerk_id: string;
   fullName: string;
   imageUrl: string;
   phone: string;
@@ -20,8 +23,12 @@ export interface ProfileState {
   genderOther: string;
   age18to24: string;
   age25to34: string;
+  age35to44: string;
   age45to54: string;
   age55to64: string;
+  age65plus: string;
+  created_at: string;
+  email: string;
 }
 
 interface ProfileContextValue {
@@ -34,6 +41,9 @@ interface ProfileContextValue {
 }
 
 const defaultProfile: ProfileState = {
+  description: '',
+  creator_id: null,
+  clerk_id: '',
   fullName: '',
   imageUrl: '',
   phone: '',
@@ -50,8 +60,12 @@ const defaultProfile: ProfileState = {
   genderOther: '0',
   age18to24: '0',
   age25to34: '0',
+  age35to44: '0',
   age45to54: '0',
   age55to64: '0',
+  age65plus: '0',
+  created_at: '',
+  email: '',
 };
 
 const ProfileContext = createContext<ProfileContextValue>({
@@ -93,7 +107,10 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
 
       if (data.exists) {
         const mapped: ProfileState = {
-          fullName: data.full_name || data.fullName || '',
+          description: data.description || '',
+          creator_id: data.creator_id || data.creatorId || data.id || null,
+          clerk_id: data.clerk_id || '',
+          fullName: data.full_name || data.fullName || data.name || '',
           imageUrl: data.image_url || data.imageUrl || '',
           phone: data.phone || '',
           city: data.city || '',
@@ -113,8 +130,12 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
           genderOther: data.gender_other || data.genderOther || '0',
           age18to24: data.age_18to24 || data.age18to24 || '0',
           age25to34: data.age_25to34 || data.age25to34 || '0',
+          age35to44: data.age_35to44 || data.age35to44 || '0',
           age45to54: data.age_45to54 || data.age45to54 || '0',
           age55to64: data.age_55to64 || data.age55to64 || '0',
+          age65plus: data.age_65plus || data.age65plus || '0',
+          created_at: data.created_at || '',
+          email: data.email || '',
         };
         setProfileData(mapped);
         setProfileExists(true);

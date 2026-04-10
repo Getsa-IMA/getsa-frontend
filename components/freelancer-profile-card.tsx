@@ -1,5 +1,5 @@
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants, HTMLMotionProps } from "framer-motion";
 import { Star, Bookmark } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 /**
  * Props for the FreelancerProfileCard component.
  */
-interface FreelancerProfileCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface FreelancerProfileCardProps extends HTMLMotionProps<"div"> {
   /** The user's full name. */
   name: string;
   /** The user's job title or role. */
@@ -35,7 +35,7 @@ interface FreelancerProfileCardProps extends React.HTMLAttributes<HTMLDivElement
 }
 
 // Animation variants for Framer Motion
-const cardVariants = {
+const cardVariants: Variants = {
   initial: { opacity: 0, y: 20 },
   animate: {
     opacity: 1,
@@ -48,7 +48,7 @@ const cardVariants = {
   },
 };
 
-const contentVariants = {
+const contentVariants: Variants = {
   initial: {},
   animate: {
     transition: {
@@ -58,7 +58,7 @@ const contentVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   initial: { opacity: 0, y: 10 },
   animate: { opacity: 1, y: 0, transition: { duration: 0.3 } },
 };

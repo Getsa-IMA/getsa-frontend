@@ -1,5 +1,6 @@
 import { currentUser, auth } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
+import { API_BASE } from '@/lib/config';
 
 export async function GET(request: NextRequest) {
     try {
@@ -20,7 +21,7 @@ export async function GET(request: NextRequest) {
         }
 
         // Forward the request to the actual backend
-        const backendResponse = await fetch('http://localhost:5000/api/v1/creators/profile', {
+        const backendResponse = await fetch(`${API_BASE}/creators/profile`, {
             method: 'GET',
             headers: {
                 'Authorization': authHeader || '',
@@ -71,4 +72,100 @@ export async function GET(request: NextRequest) {
             { status: 500 }
         );
     }
-}
+}
+
+export async function PUT(request: NextRequest) {
+    try {
+        console.log('Profile API PUT called');
+        const authHeader = request.headers.get('authorization');
+        const body = await request.json();
+
+        const { userId } = await auth();
+
+        if (!userId) {
+            return NextResponse.json(
+                { error: 'Unauthorized' },
+                { status: 401 }
+            );
+        }
+
+        // Forward the request to the actual backend
+        const backendResponse = await fetch(`${API_BASE}/creators/profile`, {
+          method: 'PUT',
+            headers: {
+                'Authorization': authHeader || '',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        });
+
+        console.log('Backend PUT response status:', backendResponse.status);
+
+        const contentType = backendResponse.headers.get("content-type");
+        let responseData;
+
+        if (contentType && contentType.includes("application/json")) {
+            responseData = await backendResponse.json();
+        } else {
+            responseData = { message: await backendResponse.text() };
+        }
+
+        return NextResponse.json(responseData, { status: backendResponse.status });
+
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        return NextResponse.json(
+            { error: 'Internal server error' },
+            { status: 500 }
+        );
+    }
+}
+
+export async function POST(request: NextRequest) {
+    try {
+        console.log('Profile API PUT called');
+        const authHeader = request.headers.get('authorization');
+        const body = await request.json();
+
+        const { userId } = await auth();
+
+        if (!userId) {
+            return NextResponse.json(
+                { error: 'Unauthorized' },
+                { status: 401 }
+            );
+        }
+
+        // Forward the request to the actual backend
+        const backendResponse = await fetch(`${API_BASE}/creators/profile`, {
+          method: 'PUT',
+            headers: {
+                'Authorization': authHeader || '',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        });
+
+        console.log('Backend POST response status:', backendResponse.status);
+
+        const contentType = backendResponse.headers.get("content-type");
+        let responseData;
+
+        if (contentType && contentType.includes("application/json")) {
+            responseData = await backendResponse.json();
+        } else {
+            responseData = { message: await backendResponse.text() };
+        }
+
+        return NextResponse.json(responseData, { status: backendResponse.status });
+
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        return NextResponse.json(
+            { error: 'Internal server error' },
+            { status: 500 }
+        );
+    }
+}
+
+
